@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: 客戶資料管理 API
+  version: 1.0.0
+  description: 提供客戶資料的查詢、新增、編輯功能。
+servers:
+  - url: /api
+paths:
+  /customers:
+    get:
+      summary: 取得所有客戶清單
+      responses:
+        '200':
+          description: 成功取得客戶清單
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      summary: 新增客戶
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: 成功新增客戶
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: 無效的輸入
+  /customers/{id}:
+    get:
+      summary: 取得單一客戶資料
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: 客戶ID
+      responses:
+        '200':
+          description: 成功取得客戶資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: 找不到客戶
+    put:
+      summary: 更新客戶資料
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: 客戶ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: 成功更新客戶資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: 無效的輸入
+        '404':
+          description: 找不到客戶
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: integer
+          readOnly: true
+        customerName:
+          type: string
+        contactPerson:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+      required:
+        - customerName
+        - email
+    CustomerCreate:
+      type: object
+      properties:
+        customerName:
+          type: string
+        contactPerson:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+      required:
+        - customerName
+        - email
+    CustomerUpdate:
+      type: object
+      properties:
+        customerName:
+          type: string
+        contactPerson:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+      required:
+        - customerName
+        - email

@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: 人員進出管理 API
+  version: 1.0.0
+  description: 提供人員進出記錄的寫入和查詢功能。
+servers:
+  - url: /api
+paths:
+  /accessrecords:
+    post:
+      summary: 記錄刷卡資料
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessRecordCreate'
+      responses:
+        '201':
+          description: 成功記錄刷卡資料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRecord'
+        '400':
+          description: 無效的輸入
+    get:
+      summary: 查詢進出記錄
+      parameters:
+        - in: query
+          name: startTime
+          schema:
+            type: string
+            format: date-time
+          description: 查詢起始時間
+        - in: query
+          name: endTime
+          schema:
+            type: string
+            format: date-time
+          description: 查詢結束時間
+        - in: query
+          name: unitName
+          schema:
+            type: string
+          description: 單位名稱
+        - in: query
+          name: employeeName
+          schema:
+            type: string
+          description: 員工姓名
+      responses:
+        '200':
+          description: 成功取得進出記錄清單
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccessRecord'
+        '400':
+          description: 無效的查詢參數
+components:
+  schemas:
+    AccessRecord:
+      type: object
+      properties:
+        accessRecordId:
+          type: integer
+          readOnly: true
+        employeeId:
+          type: string
+        name:
+          type: string
+        unitName:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        cardReaderId:
+          type: string
+      required:
+        - employeeId
+        - name
+        - unitName
+        - timestamp
+        - cardReaderId
+    AccessRecordCreate:
+      type: object
+      properties:
+        employeeId:
+          type: string
+        name:
+          type: string
+        unitName:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        cardReaderId:
+          type: string
+      required:
+        - employeeId
+        - name
+        - unitName
+        - timestamp
+        - cardReaderId

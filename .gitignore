@@ -1,0 +1,33 @@
+# Build artifacts
+bin/
+obj/
+dist/
+build/
+
+# Dependencies
+node_modules/
+packages/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.user
+*.suo
+*.swp
+*.tmp
+
+# Logs and environment files
+*.log
+.env
+.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# C# specific
+*.csproj.user
+*.vspscc
+*.vssscc
+*.bak
+*.nupkg
