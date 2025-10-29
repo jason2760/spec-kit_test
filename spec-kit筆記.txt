@@ -1,0 +1,28 @@
+Spec Kit 流程指令
+
+/speckit.constitution   確立專案最高技術原則（憲章），依AI提示後輸入開發規範
+
+/speckit.specify        將業務需求規格化，依AI提示後輸入需求描述
+
+/speckit.plan           生成技術實作藍圖，輸入既有的 UI/DB 和欄位對應邏輯
+
+/speckit.clarify        修正或細化規格/計畫，當發現 plan.md 錯誤或需要加入新的契約時，用此指令強制 AI 修正文件
+
+/speckit.tasks          分解為可執行任務清單，指示 AI 根據 Plan 拆解任務，並 強調不要執行環境檢查
+
+/speckit.implement      依任務實作程式碼，用於移交或加速開發（開發/輔助）
+
+git 指令 
+
+git init	                            初始化本地儲存庫。	在專案資料夾中第一次使用 Git 時。
+git add .	                            將所有變更納入追蹤。	在 Commit 之前，將所有新增或修改的文件加入。
+git commit -m "..."	                    提交變更到本地歷史。	在每個規格步驟（Specify, Plan, Tasks）完成後，備份文件。
+git remote add origin <URL>	            連結到遠程 GitHub 儲存庫。	在第一次將專案上傳到 GitHub 時設定。
+git push -u origin <分支名稱>	            推送本地變更到 GitHub。	確保您的規格文件在雲端安全備份（例如：git push -u origin 002-personnel-access）。
+git branch	                            查看所有本地分支。	檢查您當前所在的分支（前有 * 號）。
+git branch -a	                        查看所有本地與遠程分支。	查詢遠程備份和所有現存的分支。
+git switch <分支名稱>	                    切換到指定分支。	從 002 分支切換到 main 或 001 分支。
+git switch -c <新名稱> origin/<遠程名稱>	從遠程重建並切換分支。	當本地分支（例如 001）意外遺失時，從 GitHub 恢復。
+git fetch	                            更新遠程分支資訊。	在準備切換或合併前，確保本地知道 GitHub 的最新狀態。
+
+!git <Git 指令>	在 Gemini CLI 中執行 Git。	當您不想退出 CLI，想在 AI 介面中快速提交或推送時。
