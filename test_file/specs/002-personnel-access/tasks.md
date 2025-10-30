@@ -23,7 +23,7 @@
 
 **目的**: 專案初始化與基礎結構。
 
-- [ ] T001 建立包含 `backend` 和 `frontend` 目錄的專案結構。
+- [x] T001 建立包含 `backend` 和 `frontend` 目錄的專案結構。
 - [ ] T002 [P] 在 `backend/` 中初始化 C# ASP.NET Core MVC 專案。
 - [ ] T003 [P] 在 `frontend/` 中初始化 Vue3 專案。
 - [ ] T004 [P] 在 `backend/` 中安裝 Entity Framework Core (`Microsoft.EntityFrameworkCore.SqlServer`, `Microsoft.EntityFrameworkCore.Design`)。

@@ -1,5 +1,11 @@
 Spec Kit 流程指令
 
+進入專案資料夾 cd <專案路徑>
+
+初始化 specify init --here
+
+啟動AI介面 Gemini (以Gemini為例)
+
 /speckit.constitution   確立專案最高技術原則（憲章），依AI提示後輸入開發規範
 
 /speckit.specify        將業務需求規格化，依AI提示後輸入需求描述

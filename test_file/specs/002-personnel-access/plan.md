@@ -27,6 +27,37 @@
 **限制**: 安全性：靜態和傳輸中的資料加密。基於角色的存取控制 (RBAC)。可擴展性：支援未來人員和進出事件的增長。資料保留：進出記錄的保留政策。可稽核性：追蹤進出記錄變更的能力。
 **規模/範圍**: 人員數量：最多 1,000。每日進出記錄：最多 5,000。
 
+### 資料庫綱要與資料模型 (Database Schema and Data Model)
+
+#### SQL 資料表定義 (SQL Table Definition)
+由於專案採用 EF Core Code First 模式，實際的 SQL 將由遷移工具產生。以下是等效的 T-SQL (`SQL Server`) `CREATE TABLE` 語法：
+
+```sql
+CREATE TABLE [AccessRecords] (
+    [Id] int NOT NULL IDENTITY,
+    [EmployeeID] nvarchar(max) NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [UnitName] nvarchar(max) NOT NULL,
+    [Timestamp] datetime2 NOT NULL,
+    [CardReaderID] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_AccessRecords] PRIMARY KEY ([Id])
+);
+```
+
+#### 索引建議 (Index Recommendations)
+為了滿足成功標準 SC-002（在 3 秒內檢索 10,000 條記錄），並優化依時間、單位和姓名組合的查詢效能，建議在 `AccessRecord` 資料表上建立索引。
+
+**建議的索引 (T-SQL 語法)：**
+1.  **複合索引**: 在 `(UnitName, Name, Timestamp)` 上建立一個複合索引。
+    ```sql
+    CREATE INDEX IX_AccessRecords_UnitName_Name_Timestamp ON AccessRecords (UnitName, Name, Timestamp);
+    ```
+2.  **單獨索引**: 如果單獨按時間戳記查詢也很頻繁，可以考慮在 `Timestamp` 上建立一個獨立的索引。
+    ```sql
+    CREATE INDEX IX_AccessRecords_Timestamp ON AccessRecords (Timestamp);
+    ```
+這將確保資料庫可以快速定位和篩選記錄，避免在高資料量下進行全資料表掃描。
+
 ## 憲章檢查
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
