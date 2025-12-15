@@ -28,7 +28,10 @@ Sync Impact Report:
 ### IV. 技術棧：僅限 HTML、CSS、Javascripts
 僅能使用 HTML、CSS 和 JavaScript，不得安裝任何額外的程式套件。
 
-### V. 資料：使用 JSON 儲存於前端
+### V. 禁止：任何後端
+嚴禁建立任何後端（Backend）相關的程式碼或任務。
+
+### VI. 資料：使用 JSON 儲存於前端
 所有資料都必須使用 JSON 格式儲存於前端。
 
 ## Governance
